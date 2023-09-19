@@ -61,4 +61,3 @@ exec { 'nginx_conf':
 -> service { 'nginx':
   ensure => running,
 }
-
