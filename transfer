@@ -9,7 +9,7 @@ reset='\033[0m'
 file="$1"
 ip="$2"
 user="ubuntu"
-key="~/.ssh/id_rsa"
+key="~/.ssh/school"
 
 if [ $# -eq 2 ]; then
 	scp -i "$key" -o StrictHostKeyChecking=no "$path"/"$file" "$user"@"$ip":/home/"$user"/
