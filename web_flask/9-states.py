@@ -1,41 +1,33 @@
-
 #!/usr/bin/python3
-"""starts a Flask web application
 """
-from flask import Flask, render_template
+Module Docs
+"""
+from flask import Flask
+from models import *
 from models import storage
-from models.state import State
-
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
+
+
+@app.route('/states', strict_slashes=False)
+@app.route('/states/<state_id>', strict_slashes=False)
+def states(state_id=None):
+    """
+    Function Docs
+    """
+    states = storage.all("State")
+    if state_id is not None:
+        state_id = 'State.{}'.format(state_id)
+    return render_template('9-states.html', states=states, state_id=state_id)
 
 
 @app.teardown_appcontext
-def close_db(exc):
-    """closes
+def teardown_db(exception):
+    """
+    Function Docs
     """
     storage.close()
 
 
-@app.route('/states')
-def states():
-    """display a HTML page: (inside the tag BODY)
-    """
-    states = storage.all("State")
-    return render_template("9-states.html", state=states)
-
-
-@app.route('/states/<id>')
-def cities_by_states(id):
-    """display a HTML page: (inside the tag BODY)
-    """
-    for state in storage.all("State").values():
-        if state.id == id:
-            return render_template("9-states.html", state=state)
-    return render_template("9-states.html")
-
-
 if __name__ == '__main__':
-    app.run(debug=True)
-    app.run(host='0.0.0.0', port=5000)
+    app.run(port='5000', host='0.0.0.0')
