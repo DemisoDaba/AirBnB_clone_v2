@@ -1,57 +1,61 @@
-
 #!/usr/bin/python3
-"""starts a Flask web application
+"""
+Module Docs
 """
 from flask import Flask, render_template
 
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/')
-def hello():
-    """prints "Hello HBNB!"
+@app.route('/', strict_slashes=False)
+def task0():
+    """
+    Function Docs
     """
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
-def hbnb():
-    """prints “HBNB”
+@app.route('/hbnb', strict_slashes=False)
+def task1():
+    """
+    Function Docs
     """
     return 'HBNB'
 
 
-@app.route('/c/<text>')
-def c_is_fun(text):
-    """prints "C" followed by the value of the text variable
+@app.route('/c/<text>', strict_slashes=False)
+def task2(text):
+    """
+    Function Docs
     """
     return 'C {}'.format(text.replace('_', ' '))
 
 
-@app.route('/python')
-@app.route('/python/<text>')
-def python_is_magic(text='is cool'):
-    """prints “Python ”, followed by the value of the text
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def task3(text='is cool'):
+    """
+    Function Docs
     """
     return 'Python {}'.format(text.replace('_', ' '))
 
 
-@app.route('/number/<int:n>')
-def number(n):
-    """prints "n is a number” only if n is an integer
+@app.route('/number/<int:n>', strict_slashes=False)
+def task4(n):
     """
-    return '{:d} is a number'.format(n)
+    Function Docs
+    """
+    return f"{n:d} is a number"
 
 
-@app.route('/number_template/<int:n>')
-def number_template(n):
-    """prints a HTML page only if n is an integer
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def task5(n):
     """
-    return render_template("5-number.html", n=n)
+    Function Docs
+    """
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    app.run(host='0.0.0.0', port=5000)
+    app.run(port='5000', host='0.0.0.0')
